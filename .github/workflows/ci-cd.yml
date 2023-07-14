@@ -32,10 +32,10 @@ jobs:
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.localhost }} # Set your server's host
-          username: ${{ secrets.root }} # Set your server's username
-          password: ${{ secrets.  }} # Set your server's password
-          port: ${{ secrets.127.0.0.1 }} # Set your server's SSH port
+          host: ${{ secrets.'localhost' }} # Set your server's host
+          username: ${{ secrets.'root' }} # Set your server's username
+          password: ${{ secrets.''  }} # Set your server's password
+          port: ${{ secrets.'127.0.0.1' }} # Set your server's SSH port
           script: |
             cd /C/xampp1/htdocs
             git pull origin main
