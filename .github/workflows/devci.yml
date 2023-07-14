@@ -1,0 +1,42 @@
+name: CI/CD for WordPress
+
+on:
+  push:
+    branches:
+      - main # Change to your branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0' # Change to your desired PHP version
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y libjpeg-dev libpng-dev # Install any necessary dependencies
+          composer install --no-scripts --no-progress --prefer-dist
+          npm ci
+          npm run build
+
+      - name: Run tests
+        run: |
+          ./vendor/bin/phpunit
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }} # Set your server's host
+          username: ${{ secrets.SERVER_USERNAME }} # Set your server's username
+          password: ${{ secrets.SERVER_PASSWORD }} # Set your server's password
+          port: ${{ secrets.SERVER_PORT }} # Set your server's SSH port
+          script: |
+            cd /path/to/wordpress # Replace with the actual path to your WordPress installation
+            git pull origin main
+            # Additional deployment steps (e.g., cache clearing, database updates)
