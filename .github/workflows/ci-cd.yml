@@ -32,11 +32,11 @@ jobs:
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.127.0.0.1 }} # Set your server's host
+          host: ${{ secrets.localhost }} # Set your server's host
           username: ${{ secrets.root }} # Set your server's username
-          password: ${{ secrets.password }} # Set your server's password
-          port: ${{ secrets.3306 }} # Set your server's SSH port
+          password: ${{ secrets.  }} # Set your server's password
+          port: ${{ secrets.127.0.0.1 }} # Set your server's SSH port
           script: |
-            cd /path/to/wordpress
+            cd /C/xampp1/htdocs
             git pull origin main
             # Additional deployment steps (e.g., cache clearing, database updates)
