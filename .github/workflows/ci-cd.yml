@@ -16,7 +16,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'                                             # Change to your desired PHP version
+          php-version: '8.2.4'                                             # Change to your desired PHP version
 
       - name: Install dependencies
         run: |
@@ -32,10 +32,10 @@ jobs:
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SERVER_HOST }} # Set your server's host
-          username: ${{ secrets.SERVER_USERNAME }} # Set your server's username
-          password: ${{ secrets.SERVER_PASSWORD }} # Set your server's password
-          port: ${{ secrets.SERVER_PORT }} # Set your server's SSH port
+          host: ${{ secrets.127.0.0.1 }} # Set your server's host
+          username: ${{ secrets.root }} # Set your server's username
+          password: ${{ secrets.password }} # Set your server's password
+          port: ${{ secrets.3306 }} # Set your server's SSH port
           script: |
             cd /path/to/wordpress
             git pull origin main
